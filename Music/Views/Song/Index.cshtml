@@ -1,0 +1,31 @@
+﻿@using Music.Data.DataModels;
+@using Music.Services.ViewModels;
+@model List<SongViewModel>
+
+<h1>Songs</h1>
+
+<table class"table table-bordered table-striped" style="width=100%">
+	<thead>
+		<tr>
+			<th>
+				Song Title
+			</th>
+			<th>
+				Song ID
+			</th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach(var obj in Model)
+		{
+			<tr>
+				<td width="50%"> 
+					@obj.Title
+				</td>
+				<td width="30%">
+					@obj.Id
+				</td>
+			</tr>
+		}
+	</tbody>
+</table>
