@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Music.Data.DataModels
@@ -11,8 +12,8 @@ namespace Music.Data.DataModels
         public string Title { get; set; }
         public string Ganre { get; set; }
         public double Length { get; set; }
-        public List<Artist> Artists { get; set; }
-        public int ReleaseYear { get; set; }
+		public Artist Artist { get; set; }
+		public int ReleaseYear { get; set; }
         public string SongLanguage { get; set; }
         public Album Album { get; set; }
 

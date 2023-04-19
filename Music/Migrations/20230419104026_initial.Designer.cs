@@ -12,8 +12,8 @@ using Music.Data;
 namespace Music.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230414101627_first")]
-    partial class first
+    [Migration("20230419104026_initial")]
+    partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -235,7 +235,9 @@ namespace Music.Migrations
             modelBuilder.Entity("Music.Data.DataModels.Album", b =>
                 {
                     b.Property<string>("Id")
-                        .ValueGeneratedOnAdd()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ArtistId")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Title")
@@ -244,13 +246,14 @@ namespace Music.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ArtistId");
+
                     b.ToTable("Albums");
                 });
 
             modelBuilder.Entity("Music.Data.DataModels.Artist", b =>
                 {
                     b.Property<string>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Country")
@@ -265,16 +268,11 @@ namespace Music.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("SongId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<string>("StageName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("SongId");
 
                     b.ToTable("Artists");
                 });
@@ -282,10 +280,13 @@ namespace Music.Migrations
             modelBuilder.Entity("Music.Data.DataModels.Song", b =>
                 {
                     b.Property<string>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("AlbumId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ArtistId")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
@@ -310,6 +311,8 @@ namespace Music.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("AlbumId");
+
+                    b.HasIndex("ArtistId");
 
                     b.ToTable("Songs");
                 });
@@ -372,11 +375,13 @@ namespace Music.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Music.Data.DataModels.Artist", b =>
+            modelBuilder.Entity("Music.Data.DataModels.Album", b =>
                 {
-                    b.HasOne("Music.Data.DataModels.Song", null)
-                        .WithMany("Artists")
-                        .HasForeignKey("SongId");
+                    b.HasOne("Music.Data.DataModels.Artist", "Artist")
+                        .WithMany()
+                        .HasForeignKey("ArtistId");
+
+                    b.Navigation("Artist");
                 });
 
             modelBuilder.Entity("Music.Data.DataModels.Song", b =>
@@ -387,12 +392,15 @@ namespace Music.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Album");
-                });
+                    b.HasOne("Music.Data.DataModels.Artist", "Artist")
+                        .WithMany()
+                        .HasForeignKey("ArtistId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-            modelBuilder.Entity("Music.Data.DataModels.Song", b =>
-                {
-                    b.Navigation("Artists");
+                    b.Navigation("Album");
+
+                    b.Navigation("Artist");
                 });
 #pragma warning restore 612, 618
         }

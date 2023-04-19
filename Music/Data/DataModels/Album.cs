@@ -9,5 +9,6 @@ namespace Music.Data.DataModels
 		public string Id { get; set; }
         [Required]
         public string Title { get; set; }
+        public Artist Artist { get; set; }
     }
 }

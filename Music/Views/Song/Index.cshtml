@@ -1,5 +1,6 @@
 ﻿@using Music.Data.DataModels;
 @using Music.Services.ViewModels;
+@using System.Text;
 @model List<SongViewModel>
 
 <div class="container p-3">
@@ -24,18 +25,58 @@
 				<th scope="col">
 				Song ID
 			</th>
-		</tr>
+			<th scope="col">
+				Genre
+			</th>
+				<th scope="col">
+					Length
+				</th>
+				<th scope="col">
+					Artists
+				</th>
+				<th scope="col">
+					Release Year
+				</th>
+				<th scope="col">
+					Song Language
+				</th>
+				<th scope="col">
+					Album
+				</th>
+
+
+
+			</tr>
 	</thead>
 	<tbody>
 		@foreach(var obj in Model)
 		{
+						
 				<tr class="table-active">
-				<td width="50%"> 
+				<td> 
 					@obj.Title
 				</td>
-				<td width="30%">
+				<td>
 					@obj.Id
 				</td>
+				<td>
+					@obj.Ganre
+				</td>
+				<td>
+					@obj.Length
+				</td>
+					<td>
+						@obj.Artist.StageName
+					</td>
+					<td>
+						@obj.ReleaseYear
+					</td>
+					<td>
+						@obj.SongLanguage
+					</td>
+					<td>
+						@obj.Album.Title
+					</td>
 			</tr>
 		}
 	</tbody>

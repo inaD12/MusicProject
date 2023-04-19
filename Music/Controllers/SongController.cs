@@ -21,5 +21,20 @@ namespace Music.Controllers
 
             return this.View(songs);
         }
+
+		[HttpGet]
+		public IActionResult Create()
+		{
+			return View();
+		}
+
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+		public async Task<IActionResult> Create(SongViewModel songVM)
+        {
+
+            await songService.CreateAsync(songVM);
+            return RedirectToAction("Index");
+        }
     }
 }

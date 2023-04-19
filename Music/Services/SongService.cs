@@ -1,4 +1,6 @@
-﻿using Music.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using Music.Data;
+using Music.Data.DataModels;
 using Music.Services.Interfaces;
 using Music.Services.ViewModels;
 
@@ -20,15 +22,30 @@ namespace Music.Services
 				Title = song.Title,
 				Ganre = song.Ganre,
 				Length = song.Length,
-				Artists = song.Artists,
+				Artist = song.Artist,
 				ReleaseYear = song.ReleaseYear,
 				SongLanguage = song.SongLanguage,
 				Album = song.Album,
 			}).ToList();
 		}
-		public Task CreateAsync(SongViewModel model)
+
+
+		public async Task CreateAsync(SongViewModel model)
 		{
-			throw new NotImplementedException();
+			Song song = new Song();
+
+			song.Id = Guid.NewGuid().ToString();
+			song.Title = model.Title;
+			song.Artist = _db.Artists.FirstOrDefault(artist => artist.StageName == model.Artist.StageName);
+			song.ReleaseYear = model.ReleaseYear;
+			song.Album = _db.Albums.FirstOrDefault(album => album.Title == model.Album.Title);
+			song.SongLanguage = model.SongLanguage;
+			song.Length = model.Length;
+			song.Ganre = model.Ganre;
+			
+
+			await _db.Songs.AddAsync(song);
+			await _db.SaveChangesAsync();
 		}
 
 		public Task DeleteSong(string id)
