@@ -17,7 +17,7 @@ namespace Music.Controllers
         public IActionResult Index()
         {
 
-            List<SongViewModel> songs = songService.GetAll(); 
+            List<Song> songs = songService.GetAll(); 
 
             return this.View(songs);
         }
@@ -32,9 +32,20 @@ namespace Music.Controllers
 		[ValidateAntiForgeryToken]
 		public async Task<IActionResult> Create(SongViewModel songVM)
         {
-
-            await songService.CreateAsync(songVM);
-            return RedirectToAction("Index");
+            if(!songService.CheckAlbum(songVM.AlbumName))
+            {
+                ModelState.AddModelError("AlbumName", "An album with this name doesn't exist");
+            }
+			if (!songService.CheckArtist(songVM.ArtistName))
+			{
+				ModelState.AddModelError("ArtistName", "An artist with this name doesn't exist");
+			}
+            if(songService.CheckAlbum(songVM.AlbumName) && songService.CheckArtist(songVM.ArtistName))
+			{
+                await songService.CreateAsync(songVM);
+                return RedirectToAction("Index");
+            }
+            return View(songVM);  
         }
     }
 }

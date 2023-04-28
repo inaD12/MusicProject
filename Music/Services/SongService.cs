@@ -14,9 +14,9 @@ namespace Music.Services
         {
 			_db = db;
         }
-		public List<SongViewModel> GetAll()
+		public List<Song> GetAll()
 		{
-			return _db.Songs.Select(song => new SongViewModel()
+			return _db.Songs.Select(song => new Song()
 			{
 				Id = song.Id,
 				Title = song.Title,
@@ -29,20 +29,34 @@ namespace Music.Services
 			}).ToList();
 		}
 
+		public bool CheckAlbum(string name)
+		{
+			if (_db.Albums.Any(album => album.Title == name))
+				return true;
+			return false;
+		}
+		public bool CheckArtist(string name)
+		{
+			if (_db.Artists.Any(artist => artist.StageName == name))
+				return true;
+			return false;
+		}
+
 
 		public async Task CreateAsync(SongViewModel model)
 		{
-			Song song = new Song();
+			Song song = new Song
+			{
+				Id = Guid.NewGuid().ToString(),
+				Title = model.Title,
+				Artist = _db.Artists.FirstOrDefault(artist => artist.StageName == model.ArtistName),
+				ReleaseYear = model.ReleaseYear,
+				Album = _db.Albums.FirstOrDefault(album => album.Title == model.AlbumName),
+				SongLanguage = model.SongLanguage,
+				Length = model.Length,
+				Ganre = model.Ganre
+			};
 
-			song.Id = Guid.NewGuid().ToString();
-			song.Title = model.Title;
-			song.Artist = _db.Artists.FirstOrDefault(artist => artist.StageName == model.Artist.StageName);
-			song.ReleaseYear = model.ReleaseYear;
-			song.Album = _db.Albums.FirstOrDefault(album => album.Title == model.Album.Title);
-			song.SongLanguage = model.SongLanguage;
-			song.Length = model.Length;
-			song.Ganre = model.Ganre;
-			
 
 			await _db.Songs.AddAsync(song);
 			await _db.SaveChangesAsync();
