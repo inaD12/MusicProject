@@ -47,5 +47,38 @@ namespace Music.Controllers
             }
             return View(songVM);  
         }
-    }
+
+		public IActionResult Edit(string? id)
+		{
+			if(id == null) 
+			{
+				return NotFound();
+			}
+			if (!songService.CheckId(id))
+			{
+				return NotFound();
+			}
+			return View(songService.UpdateById(id));
+		}
+
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+		public async Task<IActionResult> Edit(SongViewModel songVM)
+		{
+			if (!songService.CheckAlbum(songVM.AlbumName))
+			{
+				ModelState.AddModelError("AlbumName", "An album with this name doesn't exist");
+			}
+			if (!songService.CheckArtist(songVM.ArtistName))
+			{
+				ModelState.AddModelError("ArtistName", "An artist with this name doesn't exist");
+			}
+			if (songService.CheckAlbum(songVM.AlbumName) && songService.CheckArtist(songVM.ArtistName))
+			{
+				await songService.UpdateAsync(songVM);
+				return RedirectToAction("Index");
+			}
+			return View(songVM);
+		}
+	}
 }

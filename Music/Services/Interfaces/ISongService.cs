@@ -1,4 +1,5 @@
-﻿using Music.Services.ViewModels;
+﻿using Music.Data.DataModels;
+using Music.Services.ViewModels;
 
 namespace Music.Services.Interfaces
 {

@@ -3,6 +3,7 @@ using Music.Data;
 using Music.Data.DataModels;
 using Music.Services.Interfaces;
 using Music.Services.ViewModels;
+using System;
 
 namespace Music.Services
 {
@@ -41,6 +42,13 @@ namespace Music.Services
 				return true;
 			return false;
 		}
+		public bool CheckId(string Id)
+		{
+			var song = _db.Songs.Find(Id);
+			if (song == null)
+				return false;
+			return true;
+		}
 
 
 		public async Task CreateAsync(SongViewModel model)
@@ -67,14 +75,44 @@ namespace Music.Services
 			throw new NotImplementedException();
 		}
 
-		public Task UpdateAsync(SongViewModel model)
+		public async Task UpdateAsync(SongViewModel model)
 		{
-			throw new NotImplementedException();
+			Song song = _db.Songs.Find(model.Id);
+
+			bool isSongNull = song == null;
+			if (isSongNull)
+			{
+				return;
+			}
+
+			song.Title = model.Title;
+			song.Artist = _db.Artists.FirstOrDefault(artist => artist.StageName == model.ArtistName);
+			song.ReleaseYear = model.ReleaseYear;
+			song.Album = _db.Albums.FirstOrDefault(album => album.Title == model.AlbumName);
+			song.SongLanguage = model.SongLanguage;
+			song.Length = model.Length;
+			song.Ganre = model.Ganre;
+
+			_db.Songs.Update(song);
+			await _db.SaveChangesAsync();
 		}
 
 		public SongViewModel UpdateById(string id)
 		{
-			throw new NotImplementedException();
+			SongViewModel song = _db.Songs
+				.Select(song => new SongViewModel
+				{
+					Id = song.Id,
+					Title = song.Title,
+					ArtistName = song.Artist.StageName,
+					ReleaseYear = song.ReleaseYear,
+					AlbumName = song.Album.Title,
+					SongLanguage = song.SongLanguage,
+					Length = song.Length,
+					Ganre = song.Ganre
+				}).SingleOrDefault(movie => movie.Id == id);
+
+			return song;
 		}
 	}
 }

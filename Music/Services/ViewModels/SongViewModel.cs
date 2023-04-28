@@ -6,6 +6,7 @@ namespace Music.Services.ViewModels
 {
 	public class SongViewModel
 	{
+		public string? Id { get; set; }
 		[Required(ErrorMessage = "This field Is Required")]
 		public string Title { get; set; }
 		[DisplayName("Genre")]
