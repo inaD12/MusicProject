@@ -7,7 +7,7 @@ namespace Music.Services.Interfaces
 	{
 		Task DeleteSong(string id);
 		Task CreateAsync(SongViewModel model);
-		SongViewModel UpdateById(string id);
+		SongViewModel GetById(string id);
 		Task UpdateAsync(SongViewModel model);
 	}
 }

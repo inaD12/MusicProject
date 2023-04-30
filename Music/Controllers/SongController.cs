@@ -1,26 +1,25 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Music.Data;
 using Music.Data.DataModels;
 using Music.Services;
 using Music.Services.ViewModels;
 
 namespace Music.Controllers
 {
-    public class SongController : Controller
-    {
+	public class SongController : Controller
+	{
 		public SongService songService { get; set; }
 
 		public SongController(SongService service)
-        {
-            songService = service;
-        }
-        public IActionResult Index()
-        {
+		{
+			songService = service;
+		}
+		public IActionResult Index()
+		{
 
-            List<Song> songs = songService.GetAll(); 
+			List<Song> songs = songService.GetAll();
 
-            return this.View(songs);
-        }
+			return this.View(songs);
+		}
 
 		[HttpGet]
 		public IActionResult Create()
@@ -31,26 +30,27 @@ namespace Music.Controllers
 		[HttpPost]
 		[ValidateAntiForgeryToken]
 		public async Task<IActionResult> Create(SongViewModel songVM)
-        {
-            if(!songService.CheckAlbum(songVM.AlbumName))
-            {
-                ModelState.AddModelError("AlbumName", "An album with this name doesn't exist");
-            }
+		{
+			if (!songService.CheckAlbum(songVM.AlbumName))
+			{
+				ModelState.AddModelError("AlbumName", "An album with this name doesn't exist");
+			}
 			if (!songService.CheckArtist(songVM.ArtistName))
 			{
 				ModelState.AddModelError("ArtistName", "An artist with this name doesn't exist");
 			}
-            if(songService.CheckAlbum(songVM.AlbumName) && songService.CheckArtist(songVM.ArtistName))
+			if (songService.CheckAlbum(songVM.AlbumName) && songService.CheckArtist(songVM.ArtistName))
 			{
-                await songService.CreateAsync(songVM);
-                return RedirectToAction("Index");
-            }
-            return View(songVM);  
-        }
+				await songService.CreateAsync(songVM);
+				TempData["done"] = "A Song Has Been Created Successfully!";
+				return RedirectToAction("Index");
+			}
+			return View(songVM);
+		}
 
 		public IActionResult Edit(string? id)
 		{
-			if(id == null) 
+			if (id == null)
 			{
 				return NotFound();
 			}
@@ -58,7 +58,7 @@ namespace Music.Controllers
 			{
 				return NotFound();
 			}
-			return View(songService.UpdateById(id));
+			return View(songService.GetById(id));
 		}
 
 		[HttpPost]
@@ -76,9 +76,37 @@ namespace Music.Controllers
 			if (songService.CheckAlbum(songVM.AlbumName) && songService.CheckArtist(songVM.ArtistName))
 			{
 				await songService.UpdateAsync(songVM);
+				TempData["done"] = "A Song Has Been Edited Successfully!";
 				return RedirectToAction("Index");
 			}
 			return View(songVM);
+		}
+		public IActionResult Delete(string? id)
+		{
+			if (id == null)
+			{
+				return NotFound();
+			}
+			if (!songService.CheckId(id))
+			{
+				return NotFound();
+			}
+			return View(songService.GetById(id));
+		}
+
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+		public async Task<IActionResult> DeletePOST(string? id)
+		{
+			var obj = songService.GetById(id);
+			if (obj == null)
+			{
+				return NotFound();
+			}
+			await songService.DeleteSong(id);
+			TempData["done"] = "A Song Has Been Deleted Successfully!";
+			return RedirectToAction("Index");
+
 		}
 	}
 }

@@ -49,6 +49,7 @@ namespace Music.Services
 				return false;
 			return true;
 		}
+		
 
 
 		public async Task CreateAsync(SongViewModel model)
@@ -70,9 +71,11 @@ namespace Music.Services
 			await _db.SaveChangesAsync();
 		}
 
-		public Task DeleteSong(string id)
+		public async Task DeleteSong(string id)
 		{
-			throw new NotImplementedException();
+			var Db = _db.Songs.FirstOrDefault(x => x.Id == id);
+			_db.Songs.Remove(Db);
+			await _db.SaveChangesAsync();
 		}
 
 		public async Task UpdateAsync(SongViewModel model)
@@ -97,7 +100,7 @@ namespace Music.Services
 			await _db.SaveChangesAsync();
 		}
 
-		public SongViewModel UpdateById(string id)
+		public SongViewModel GetById(string id)
 		{
 			SongViewModel song = _db.Songs
 				.Select(song => new SongViewModel
@@ -110,7 +113,7 @@ namespace Music.Services
 					SongLanguage = song.SongLanguage,
 					Length = song.Length,
 					Ganre = song.Ganre
-				}).SingleOrDefault(movie => movie.Id == id);
+				}).SingleOrDefault(song => song.Id == id);
 
 			return song;
 		}
