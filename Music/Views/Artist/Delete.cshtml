@@ -1,0 +1,41 @@
+﻿@using Music.Services.ViewModels;
+@model ArtistViewModel
+
+<form method="post" asp-action="DeletePOST">
+	<input asp-for="Id" hidden />
+	<div class="border p-3 mt-4">
+		<div class="row pb-2">
+			<h2 class="text-primary">Delete Artist</h2>
+			<hr />
+		</div>
+		<div class="mb-3">
+			<label asp-for="StageName"></label>
+			<input asp-for="StageName" disabled class="form-control" />
+		</div>
+		<div class="mb-3">
+			<label asp-for="FirstName"></label>
+			<input asp-for="FirstName" disabled class="form-control" />
+		</div>
+		<div class="mb-3">
+			<label asp-for="LastName"></label>
+			<input asp-for="LastName" disabled class="form-control" />
+		</div>
+		<div class="mb-3">
+			<label asp-for="Country"></label>
+			<input asp-for="Country" disabled class="form-control" />
+		</div>
+
+		<button type="submit" class="btn btn-danger" style="width:150px">Delete</button>
+		<a asp-controller="Artist" asp-action="Index" class="btn btn-secondary" style="width:150px">
+			Back To List
+		</a>	
+	</div>
+</form>
+
+@section Scripts{
+	@{
+		<partial name="_ValidationScriptsPartial" />
+	}
+
+
+}

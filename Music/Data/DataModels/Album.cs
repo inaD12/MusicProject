@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Music.Data.DataModels
@@ -7,8 +8,9 @@ namespace Music.Data.DataModels
     {
         [Key]
 		public string Id { get; set; }
-        [Required]
-        public string Title { get; set; }
-        public Artist Artist { get; set; }
+		[DisplayName("Title")]
+		public string Title { get; set; }
+		[DisplayName("Artist")]
+		public Artist Artist { get; set; }
     }
 }

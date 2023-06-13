@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "R6HwgK+8twXvST55YxkMO4JtbRKEr8/MpSextc0a4lKBTRyge3+GA8eXOMWDcpPbm4soeapuutWQIvZ2pomAuQ==",
+  "dgSpecHash": "2JTaURNlBtkcNu3gOBpg5bISyImdpUSA+WRip7YcMPdPEMrAOW+KxEfQky6FdME+9dd4NUsKfhJY0hn4KehNbQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\Capit\\OneDrive\\Работен плот\\Uni\\Сем2\\ООП\\Music\\Music\\Music.csproj",
   "expectedPackageFiles": [
@@ -184,7 +184,9 @@
     "C:\\Users\\Capit\\.nuget\\packages\\system.threading.timer\\4.3.0\\system.threading.timer.4.3.0.nupkg.sha512",
     "C:\\Users\\Capit\\.nuget\\packages\\system.windows.extensions\\6.0.0\\system.windows.extensions.6.0.0.nupkg.sha512",
     "C:\\Users\\Capit\\.nuget\\packages\\system.xml.readerwriter\\4.3.0\\system.xml.readerwriter.4.3.0.nupkg.sha512",
-    "C:\\Users\\Capit\\.nuget\\packages\\system.xml.xdocument\\4.3.0\\system.xml.xdocument.4.3.0.nupkg.sha512"
+    "C:\\Users\\Capit\\.nuget\\packages\\system.xml.xdocument\\4.3.0\\system.xml.xdocument.4.3.0.nupkg.sha512",
+    "C:\\Users\\Capit\\.nuget\\packages\\xunit.abstractions\\2.0.3\\xunit.abstractions.2.0.3.nupkg.sha512",
+    "C:\\Users\\Capit\\.nuget\\packages\\xunit.extensibility.core\\2.4.2\\xunit.extensibility.core.2.4.2.nupkg.sha512"
   ],
   "logs": []
 }

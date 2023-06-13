@@ -15,6 +15,8 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.Requ
     .AddEntityFrameworkStores<ApplicationDbContext>();
 
 builder.Services.AddTransient <SongService>();
+builder.Services.AddTransient<ArtistService>();
+builder.Services.AddTransient<AlbumService>();
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
