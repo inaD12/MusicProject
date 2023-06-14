@@ -1,9 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Music.Data;
+﻿using Music.Data;
 using Music.Data.DataModels;
 using Music.Services.Interfaces;
 using Music.Services.ViewModels;
-using System;
 
 namespace Music.Services
 {
@@ -27,6 +25,7 @@ namespace Music.Services
 				ReleaseYear = song.ReleaseYear,
 				SongLanguage = song.SongLanguage,
 				Album = song.Album,
+				CreatorID = song.CreatorID,
 			}).ToList();
 		}
 
@@ -54,7 +53,8 @@ namespace Music.Services
 
 		public async Task CreateAsync(SongViewModel model)
 		{
-			Song song = new Song
+			
+				Song song = new Song
 			{
 				Id = Guid.NewGuid().ToString(),
 				Title = model.Title,
@@ -63,7 +63,8 @@ namespace Music.Services
 				Album = _db.Albums.FirstOrDefault(album => album.Title == model.AlbumName),
 				SongLanguage = model.SongLanguage,
 				Length = model.Length,
-				Ganre = model.Ganre
+				Ganre = model.Ganre,
+				CreatorID = model.CreatorID,
 			};
 
 
@@ -95,6 +96,7 @@ namespace Music.Services
 			song.SongLanguage = model.SongLanguage;
 			song.Length = model.Length;
 			song.Ganre = model.Ganre;
+			song.CreatorID = model.CreatorID;
 
 			_db.Songs.Update(song);
 			await _db.SaveChangesAsync();
@@ -112,7 +114,8 @@ namespace Music.Services
 					AlbumName = song.Album.Title,
 					SongLanguage = song.SongLanguage,
 					Length = song.Length,
-					Ganre = song.Ganre
+					Ganre = song.Ganre,
+					CreatorID = song.CreatorID,
 				}).SingleOrDefault(song => song.Id == id);
 
 			return song;

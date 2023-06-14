@@ -17,7 +17,7 @@ namespace Music.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.13")
+                .HasAnnotation("ProductVersion", "6.0.16")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
@@ -238,6 +238,9 @@ namespace Music.Migrations
                     b.Property<string>("ArtistId")
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<string>("CreatorID")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -256,6 +259,9 @@ namespace Music.Migrations
 
                     b.Property<string>("Country")
                         .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CreatorID")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FirstName")
@@ -287,6 +293,9 @@ namespace Music.Migrations
                     b.Property<string>("ArtistId")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("CreatorID")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Ganre")
                         .IsRequired()

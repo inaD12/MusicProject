@@ -2,6 +2,7 @@
 using Music.Data.DataModels;
 using Music.Services;
 using Music.Services.ViewModels;
+using System.Security.Claims;
 
 namespace Music.Controllers
 {
@@ -37,6 +38,8 @@ namespace Music.Controllers
 			}
 			if (albumService.CheckArtist(albumVM.ArtistName))
 			{
+				var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+				albumVM.CreatorID = userId;
 				await albumService.CreateAsync(albumVM);
 				TempData["done"] = "An Album Has Been Created Successfully!";
 				return RedirectToAction("Index");
@@ -63,8 +66,8 @@ namespace Music.Controllers
 		{
 			if (!albumService.CheckArtist(albumVM.ArtistName))
 			{
-				var createUrl = Url.Action("Create", "Artist");
-				ModelState.AddModelError("ArtistName", "An artist with this name doesn't exist <a href=\"{createUrl}\">Create the entity</a>.");
+				ModelState.AddModelError("ArtistName", "An artist with this name doesn't exist");
+
 			}
 			if (albumService.CheckArtist(albumVM.ArtistName))
 			{

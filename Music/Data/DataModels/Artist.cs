@@ -16,5 +16,6 @@ namespace Music.Data.DataModels
 		public string LastName { get; set; }
 		[DisplayName("Country Of Origin")]
 		public string Country { get; set; }
-    }
+		public string? CreatorID { get; set; }
+	}
 }

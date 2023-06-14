@@ -2,6 +2,7 @@
 using Music.Data.DataModels;
 using Music.Services;
 using Music.Services.ViewModels;
+using System.Security.Claims;
 
 namespace Music.Controllers
 {
@@ -31,7 +32,8 @@ namespace Music.Controllers
 		[ValidateAntiForgeryToken]
 		public async Task<IActionResult> Create(ArtistViewModel artistVM)
 		{
-
+				var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+				artistVM.CreatorID = userId;
 				await artistService.CreateAsync(artistVM);
 				TempData["done"] = "An Artist Has Been Created Successfully!";
 				return RedirectToAction("Index");

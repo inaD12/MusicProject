@@ -2,6 +2,7 @@
 using Music.Data.DataModels;
 using Music.Services;
 using Music.Services.ViewModels;
+using System.Security.Claims;
 
 namespace Music.Controllers
 {
@@ -41,6 +42,8 @@ namespace Music.Controllers
 			}
 			if (songService.CheckAlbum(songVM.AlbumName) && songService.CheckArtist(songVM.ArtistName))
 			{
+				var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+				songVM.CreatorID = userId;
 				await songService.CreateAsync(songVM);
 				TempData["done"] = "A Song Has Been Created Successfully!";
 				return RedirectToAction("Index");

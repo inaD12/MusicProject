@@ -1,7 +1,10 @@
 ﻿@using Music.Data.DataModels;
 @using Music.Services.ViewModels;
 @using System.Text;
+@using Microsoft.AspNetCore.Identity
 @model List<Artist>
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
 
 <div class="container p-3">
 	<div class="row pt-4">
@@ -55,17 +58,20 @@
 				<td>
 					@obj.Country
 				</td>
-					<td>
-						<div class="w-75 btn-group" roll="group">
-							<a asp-controller="Artist" asp-action="Edit" asp-route-id="@obj.Id" class="btn btn-primary mx-2"> <i class="bi bi-pencil-square"></i> Edit</a>
-						</div>
-					</td>
-					<td>
-						<div class="w-75 btn-group" roll="group">
-							<a asp-controller="Artist" asp-action="Delete" asp-route-id="@obj.Id" class="btn btn-danger mx-2"> <i class="bi bi-trash3"></i> Delete</a>
-						</div>
-					</td>
-			</tr>
+					@if (User.IsInRole("Admin") || UserManager.GetUserId(User) == obj.CreatorID && obj.CreatorID != null)
+					{
+						<td>
+							<div class="w-75 btn-group" roll="group">
+								<a asp-controller="Artist" asp-action="Edit" asp-route-id="@obj.Id" class="btn btn-primary mx-2"> <i class="bi bi-pencil-square"></i> Edit</a>
+							</div>
+						</td>
+						<td>
+							<div class="w-75 btn-group" roll="group">
+								<a asp-controller="Artist" asp-action="Delete" asp-route-id="@obj.Id" class="btn btn-danger mx-2"> <i class="bi bi-trash3"></i> Delete</a>
+							</div>
+						</td>
+					}
+				</tr>
 		}
 	</tbody>
 </table>

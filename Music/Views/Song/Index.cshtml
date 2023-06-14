@@ -1,7 +1,10 @@
 ﻿@using Music.Data.DataModels;
 @using Music.Services.ViewModels;
 @using System.Text;
+@using Microsoft.AspNetCore.Identity
 @model List<Song>
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
 
 <div class="container p-3">
 	<div class="row pt-4">
@@ -19,36 +22,30 @@
 <table class="table table-hover">
 	<thead>
 		<tr>
-				<th scope="col">
-					Song Title
-			</th>
-				<th scope="col">
-				Song ID
+			<th scope="col">
+				Song Title
 			</th>
 			<th scope="col">
 				Genre
 			</th>
-				<th scope="col">
-					Length
-				</th>
-				<th scope="col">
-					Artist
-				</th>
-				<th scope="col">
-					Release Year
-				</th>
-				<th scope="col">
-					Song Language
-				</th>
-				<th scope="col">
-					Album
-				</th>
-				<th></th>
-				<th></th>
-
-
-
-			</tr>
+			<th scope="col">
+				Length
+			</th>
+			<th scope="col">
+				Artist
+			</th>
+			<th scope="col">
+				Release Year
+			</th>
+			<th scope="col">
+				Song Language
+			</th>
+			<th scope="col">
+				Album
+			</th>
+			<th></th>
+			<th></th>
+		</tr>
 	</thead>
 	<tbody>
 		@foreach(var obj in Model)
@@ -57,9 +54,6 @@
 				<tr class="table-active">
 				<td> 
 					@obj.Title
-				</td>
-				<td>
-					@obj.Id
 				</td>
 				<td>
 					@obj.Ganre
@@ -79,17 +73,20 @@
 					<td>
 						@obj.Album.Title
 					</td>
-					<td>
-						<div class="w-75 btn-group" roll="group">
-							<a asp-controller="Song" asp-action="Edit" asp-route-id="@obj.Id" class="btn btn-primary mx-2"> <i class="bi bi-pencil-square"></i> Edit</a>
-						</div>
-					</td>
-					<td>
-						<div class="w-75 btn-group" roll="group">
-							<a asp-controller="Song" asp-action="Delete" asp-route-id="@obj.Id" class="btn btn-danger mx-2"> <i class="bi bi-trash3"></i> Delete</a>
-						</div>
-					</td>
-			</tr>
+					@if (User.IsInRole("Admin") || UserManager.GetUserId(User) == obj.CreatorID && obj.CreatorID != null)
+					{
+						<td>
+							<div class="w-75 btn-group" roll="group">
+								<a asp-controller="Song" asp-action="Edit" asp-route-id="@obj.Id" class="btn btn-primary mx-2"> <i class="bi bi-pencil-square"></i> Edit</a>
+							</div>
+						</td>
+						<td>
+							<div class="w-75 btn-group" roll="group">
+								<a asp-controller="Song" asp-action="Delete" asp-route-id="@obj.Id" class="btn btn-danger mx-2"> <i class="bi bi-trash3"></i> Delete</a>
+							</div>
+						</td>
+					}
+				</tr>
 		}
 	</tbody>
 </table>

@@ -12,5 +12,6 @@ namespace Music.Data.DataModels
 		public string Title { get; set; }
 		[DisplayName("Artist")]
 		public Artist Artist { get; set; }
-    }
+		public string? CreatorID { get; set; }
+	}
 }

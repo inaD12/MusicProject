@@ -25,7 +25,8 @@ namespace Music.Services
 				StageName = artist.StageName,
 				FirstName = artist.FirstName,
 				LastName = artist.LastName,
-				Country = artist.Country
+				Country = artist.Country,
+				CreatorID = artist.CreatorID,
 			}).ToList();
 		}
 
@@ -47,7 +48,8 @@ namespace Music.Services
 				StageName = model.StageName,
 				FirstName = model.FirstName,
 				LastName = model.LastName,
-				Country = model.Country
+				Country = model.Country,
+				CreatorID = model.CreatorID,
 			};
 
 
@@ -76,6 +78,7 @@ namespace Music.Services
 			artist.FirstName = model.FirstName;
 			artist.LastName = model.LastName;
 			artist.Country = model.Country;
+			artist.CreatorID = model.CreatorID;
 
 			_db.Artists.Update(artist);
 			await _db.SaveChangesAsync();
@@ -90,7 +93,8 @@ namespace Music.Services
 					StageName = artist.StageName,
 					FirstName = artist.FirstName,
 					LastName = artist.LastName,
-					Country = artist.Country
+					Country = artist.Country,
+					CreatorID = artist.CreatorID,
 				}).SingleOrDefault(artist => artist.Id == id);
 
 			return artist;

@@ -1,9 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Music.Data;
+﻿using Music.Data;
 using Music.Data.DataModels;
 using Music.Services.Interfaces;
 using Music.Services.ViewModels;
-using System;
 
 namespace Music.Services
 {
@@ -22,6 +20,7 @@ namespace Music.Services
 				Id = album.Id,
 				Title = album.Title,
 				Artist = album.Artist,
+				CreatorID = album.CreatorID,
 			}).ToList();
 		}
 
@@ -48,6 +47,7 @@ namespace Music.Services
 				Id = Guid.NewGuid().ToString(),
 				Title = model.Title,
 				Artist = _db.Artists.FirstOrDefault(artist => artist.StageName == model.ArtistName),
+				CreatorID = model.CreatorID,
 			};
 
 			await _db.Albums.AddAsync(album);
@@ -73,6 +73,7 @@ namespace Music.Services
 
 			album.Title = model.Title;
 			album.Artist = _db.Artists.FirstOrDefault(artist => artist.StageName == model.ArtistName);
+			album.CreatorID = model.CreatorID;
 
 			_db.Albums.Update(album);
 			await _db.SaveChangesAsync();
@@ -86,6 +87,7 @@ namespace Music.Services
 					Id = album.Id,
 					Title = album.Title,
 					ArtistName = album.Artist.StageName,
+					CreatorID = album.CreatorID,
 				}).SingleOrDefault(album => album.Id == id);
 
 			return album;

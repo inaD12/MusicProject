@@ -18,5 +18,6 @@ namespace Music.Services.ViewModels
 		[Required(ErrorMessage = "This field Is Required")]
 		[DisplayName("Country Of Origin")]
 		public string Country { get; set; }
+		public string? CreatorID { get; set; }
 	}
 }

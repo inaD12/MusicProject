@@ -21,6 +21,7 @@ namespace Music.Data.DataModels
 		[Required]
         [DisplayName("Album Name")]
 		public Album Album { get; set; }
+        public string? CreatorID { get; set; }
 
     }
 }

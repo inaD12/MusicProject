@@ -14,5 +14,6 @@ namespace Music.Services.ViewModels
 		[Required(ErrorMessage = "This field Is Required")]
 		[DisplayName("Artist")]
 		public string ArtistName { get; set; }
+		public string? CreatorID { get; set; }
 	}
 }
