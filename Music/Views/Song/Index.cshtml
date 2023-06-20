@@ -26,19 +26,13 @@
 				Song Title
 			</th>
 			<th scope="col">
-				Genre
+				Duration
 			</th>
-			<th scope="col">
-				Length
-			</th>
+				<th scope="col">
+					Explicit
+				</th>
 			<th scope="col">
 				Artist
-			</th>
-			<th scope="col">
-				Release Year
-			</th>
-			<th scope="col">
-				Song Language
 			</th>
 			<th scope="col">
 				Album
@@ -56,19 +50,13 @@
 					@obj.Title
 				</td>
 				<td>
-					@obj.Ganre
-				</td>
-				<td>
 					@obj.Length
 				</td>
 					<td>
+						@obj.Explicit
+					</td>
+					<td>
 						@obj.Artist.StageName
-					</td>
-					<td>
-						@obj.ReleaseYear
-					</td>
-					<td>
-						@obj.SongLanguage
 					</td>
 					<td>
 						@obj.Album.Title

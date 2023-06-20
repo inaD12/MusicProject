@@ -14,7 +14,22 @@
 			<span asp-validation-for="Title" class="text-danger"></span>
 		</div>
 		<div class="mb-3">
-			<label asp-for="ArtistName">Artist (Stage Name)</label>
+			<label asp-for="TotalTracks"></label>
+			<input asp-for="TotalTracks" class="form-control" />
+			<span asp-validation-for="TotalTracks" class="text-danger"></span>
+		</div>
+		<div class="mb-3">
+			<label asp-for="RelaseYear"></label>
+			<input asp-for="RelaseYear" class="form-control" />
+			<span asp-validation-for="RelaseYear" class="text-danger"></span>
+		</div>
+		<div class="mb-3">
+			<label asp-for="Label"></label>
+			<input asp-for="Label" class="form-control" />
+			<span asp-validation-for="Label" class="text-danger"></span>
+		</div>
+		<div class="mb-3">
+			<label asp-for="ArtistName"></label>
 			<input asp-for="ArtistName" class="form-control" />
 			<span asp-validation-for="ArtistName" class="text-danger"></span>
 		</div>

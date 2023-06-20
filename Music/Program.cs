@@ -1,8 +1,11 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Music.Controllers;
 using Music.Data;
 using Music.Data.DataModels;
 using Music.Services;
+using Music.Services.Interfaces;
+using SpotifyAPI.Web;
 
 public class Program
 {
@@ -24,9 +27,15 @@ public class Program
         builder.Services.AddTransient<SongService>();
         builder.Services.AddTransient<ArtistService>();
         builder.Services.AddTransient<AlbumService>();
-        builder.Services.AddControllersWithViews();
+		builder.Services.AddTransient<ApiService>();
+		builder.Services.AddHttpClient<ApiService>();
+		builder.Services.AddControllersWithViews();
+        builder.Services.AddLogging();
+		builder.Services.AddScoped<IApiService, ApiService>();
 
-        var app = builder.Build();
+		var app = builder.Build();
+
+
 
         // Configure the HTTP request pipeline.
         if (app.Environment.IsDevelopment())
@@ -47,6 +56,7 @@ public class Program
 
         app.UseAuthentication();
         app.UseAuthorization();
+
 
         app.MapControllerRoute(
             name: "default",

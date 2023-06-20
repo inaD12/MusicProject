@@ -20,6 +20,9 @@ namespace Music.Services
 				Id = album.Id,
 				Title = album.Title,
 				Artist = album.Artist,
+				TotalTracks = album.TotalTracks,
+				RelaseYear = album.RelaseYear,
+				Label = album.Label,
 				CreatorID = album.CreatorID,
 			}).ToList();
 		}
@@ -48,6 +51,9 @@ namespace Music.Services
 				Title = model.Title,
 				Artist = _db.Artists.FirstOrDefault(artist => artist.StageName == model.ArtistName),
 				CreatorID = model.CreatorID,
+				TotalTracks = model.TotalTracks,
+				RelaseYear = model.RelaseYear,
+				Label = model.Label,
 			};
 
 			await _db.Albums.AddAsync(album);
@@ -74,6 +80,9 @@ namespace Music.Services
 			album.Title = model.Title;
 			album.Artist = _db.Artists.FirstOrDefault(artist => artist.StageName == model.ArtistName);
 			album.CreatorID = model.CreatorID;
+			album.TotalTracks = model.TotalTracks;
+			album.RelaseYear = model.RelaseYear;
+			album.Label = model.Label;
 
 			_db.Albums.Update(album);
 			await _db.SaveChangesAsync();
@@ -88,6 +97,9 @@ namespace Music.Services
 					Title = album.Title,
 					ArtistName = album.Artist.StageName,
 					CreatorID = album.CreatorID,
+					TotalTracks = album.TotalTracks,
+					RelaseYear = album.RelaseYear,
+					Label = album.Label,
 				}).SingleOrDefault(album => album.Id == id);
 
 			return album;

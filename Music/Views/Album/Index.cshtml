@@ -25,6 +25,15 @@
 			<th scope="col">
 				Album Title
 			</th>
+				<th scope="col">
+					Total Tracks
+				</th>
+				<th scope="col">
+					Release Date
+				</th>
+				<th scope="col">
+					Label
+				</th>
 			<th scope="col">
 				Artist
 			</th>
@@ -40,6 +49,15 @@
 				<td> 
 					@obj.Title
 				</td>
+					<td>
+						@obj.TotalTracks
+					</td>
+					<td>
+						@obj.RelaseYear
+					</td>
+					<td>
+						@obj.Label
+					</td>
 				<td>
 					@obj.Artist.StageName
 				</td>

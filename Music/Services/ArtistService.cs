@@ -23,9 +23,6 @@ namespace Music.Services
 			{
 				Id = artist.Id,
 				StageName = artist.StageName,
-				FirstName = artist.FirstName,
-				LastName = artist.LastName,
-				Country = artist.Country,
 				CreatorID = artist.CreatorID,
 			}).ToList();
 		}
@@ -46,9 +43,6 @@ namespace Music.Services
 			{
 				Id = Guid.NewGuid().ToString(),
 				StageName = model.StageName,
-				FirstName = model.FirstName,
-				LastName = model.LastName,
-				Country = model.Country,
 				CreatorID = model.CreatorID,
 			};
 
@@ -59,9 +53,21 @@ namespace Music.Services
 
 		public async Task DeleteArtist(string id)
 		{
-			var Db = _db.Artists.FirstOrDefault(x => x.Id == id);
-			_db.Artists.Remove(Db);
-			await _db.SaveChangesAsync();
+			var artist = await _db.Artists.FindAsync(id);
+
+			if (artist != null)
+			{
+				var albums = _db.Albums.Where(a => a.Artist.Id == id);
+
+				foreach (var album in albums)
+				{
+					_db.Albums.Remove(album);
+				}
+
+				_db.Artists.Remove(artist);
+
+				await _db.SaveChangesAsync();
+			}
 		}
 
 		public async Task UpdateAsync(ArtistViewModel model)
@@ -75,9 +81,6 @@ namespace Music.Services
 			}
 
 			artist.StageName = model.StageName;
-			artist.FirstName = model.FirstName;
-			artist.LastName = model.LastName;
-			artist.Country = model.Country;
 			artist.CreatorID = model.CreatorID;
 
 			_db.Artists.Update(artist);
@@ -91,9 +94,6 @@ namespace Music.Services
 				{
 					Id = artist.Id,
 					StageName = artist.StageName,
-					FirstName = artist.FirstName,
-					LastName = artist.LastName,
-					Country = artist.Country,
 					CreatorID = artist.CreatorID,
 				}).SingleOrDefault(artist => artist.Id == id);
 

@@ -25,15 +25,6 @@
 			<th scope="col">
 				Stage Name
 			</th>
-				<th scope="col">
-				First Name
-			</th>
-			<th scope="col">
-				Last Name
-			</th>
-			<th scope="col">
-				Country Of Origin
-			</th>
 			<th></th>
 			<th></th>
 
@@ -48,15 +39,6 @@
 				<tr class="table-active">
 				<td> 
 					@obj.StageName
-				</td>
-				<td>
-					@obj.FirstName
-				</td>
-				<td>
-					@obj.LastName
-				</td>
-				<td>
-					@obj.Country
 				</td>
 					@if (User.IsInRole("Admin") || UserManager.GetUserId(User) == obj.CreatorID && obj.CreatorID != null)
 					{

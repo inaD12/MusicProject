@@ -66,6 +66,10 @@
               "target": "Package",
               "version": "[6.0.13, )"
             },
+            "SpotifyAPI.Web": {
+              "target": "Package",
+              "version": "[7.0.0, )"
+            },
             "xunit.extensibility.core": {
               "target": "Package",
               "version": "[2.4.2, )"

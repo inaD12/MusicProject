@@ -19,12 +19,10 @@ namespace Music.Services
 			{
 				Id = song.Id,
 				Title = song.Title,
-				Ganre = song.Ganre,
 				Length = song.Length,
 				Artist = song.Artist,
-				ReleaseYear = song.ReleaseYear,
-				SongLanguage = song.SongLanguage,
 				Album = song.Album,
+				Explicit = song.Explicit,
 				CreatorID = song.CreatorID,
 			}).ToList();
 		}
@@ -59,11 +57,9 @@ namespace Music.Services
 				Id = Guid.NewGuid().ToString(),
 				Title = model.Title,
 				Artist = _db.Artists.FirstOrDefault(artist => artist.StageName == model.ArtistName),
-				ReleaseYear = model.ReleaseYear,
 				Album = _db.Albums.FirstOrDefault(album => album.Title == model.AlbumName),
-				SongLanguage = model.SongLanguage,
 				Length = model.Length,
-				Ganre = model.Ganre,
+				Explicit = model.Explicit,
 				CreatorID = model.CreatorID,
 			};
 
@@ -91,12 +87,10 @@ namespace Music.Services
 
 			song.Title = model.Title;
 			song.Artist = _db.Artists.FirstOrDefault(artist => artist.StageName == model.ArtistName);
-			song.ReleaseYear = model.ReleaseYear;
 			song.Album = _db.Albums.FirstOrDefault(album => album.Title == model.AlbumName);
-			song.SongLanguage = model.SongLanguage;
 			song.Length = model.Length;
-			song.Ganre = model.Ganre;
 			song.CreatorID = model.CreatorID;
+			song.Explicit = model.Explicit;
 
 			_db.Songs.Update(song);
 			await _db.SaveChangesAsync();
@@ -110,11 +104,9 @@ namespace Music.Services
 					Id = song.Id,
 					Title = song.Title,
 					ArtistName = song.Artist.StageName,
-					ReleaseYear = song.ReleaseYear,
 					AlbumName = song.Album.Title,
-					SongLanguage = song.SongLanguage,
 					Length = song.Length,
-					Ganre = song.Ganre,
+					Explicit = song.Explicit,
 					CreatorID = song.CreatorID,
 				}).SingleOrDefault(song => song.Id == id);
 

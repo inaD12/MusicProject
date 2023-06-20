@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "zDI+CfjeMg+tMJgf1pRAPEc7VVGDr2CVR18XX4Lh5ELeyNcUK5VXqChyJtglR9aDKOEE7+Vt+/ONCAaQL1KNgQ==",
+  "dgSpecHash": "rkySHLe6frn8XpgaBXAScRtyfb1mdyWzzNqerVVbGEaDjaFNvRDw2IeFNmOCBFEvMdLgflc4LXuS6U3A4wqv0A==",
   "success": true,
   "projectFilePath": "C:\\Users\\Capit\\OneDrive\\Работен плот\\Uni\\Сем2\\ООП\\Music\\Music\\Music.csproj",
   "expectedPackageFiles": [
@@ -104,6 +104,7 @@
     "C:\\Users\\Capit\\.nuget\\packages\\runtime.ubuntu.14.04-x64.runtime.native.system.security.cryptography.openssl\\4.3.0\\runtime.ubuntu.14.04-x64.runtime.native.system.security.cryptography.openssl.4.3.0.nupkg.sha512",
     "C:\\Users\\Capit\\.nuget\\packages\\runtime.ubuntu.16.04-x64.runtime.native.system.security.cryptography.openssl\\4.3.0\\runtime.ubuntu.16.04-x64.runtime.native.system.security.cryptography.openssl.4.3.0.nupkg.sha512",
     "C:\\Users\\Capit\\.nuget\\packages\\runtime.ubuntu.16.10-x64.runtime.native.system.security.cryptography.openssl\\4.3.0\\runtime.ubuntu.16.10-x64.runtime.native.system.security.cryptography.openssl.4.3.0.nupkg.sha512",
+    "C:\\Users\\Capit\\.nuget\\packages\\spotifyapi.web\\7.0.0\\spotifyapi.web.7.0.0.nupkg.sha512",
     "C:\\Users\\Capit\\.nuget\\packages\\system.appcontext\\4.3.0\\system.appcontext.4.3.0.nupkg.sha512",
     "C:\\Users\\Capit\\.nuget\\packages\\system.buffers\\4.3.0\\system.buffers.4.3.0.nupkg.sha512",
     "C:\\Users\\Capit\\.nuget\\packages\\system.collections\\4.3.0\\system.collections.4.3.0.nupkg.sha512",

@@ -1,4 +1,10 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Identity;
+@using Music.Data.DataModels;
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
+
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -31,6 +37,12 @@
         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Album" asp-action="Index">Albums</a>
         </li>
+        @if (User.IsInRole("Admin"))
+        {
+        <li class="nav-item">
+                                <button class="btn btn-primary" id="fetchButton">Fetch Data</button>
+        </li>
+        }
       </ul>
                     <partial name="_LoginPartial" />
     </div>
@@ -53,6 +65,25 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script>
+        document.getElementById("fetchButton").addEventListener("click", function () {
+            fetch("/api/albums", {
+                method: "POST"
+            })
+                .then(response => {
+                    if (response.ok) {
+                        console.log("Request succeeded!");
+                    } else {
+                        response.json().then(data => {
+                            console.log("Error occurred:", data.ErrorMessage);
+                        });
+                    }
+                })
+                .catch(error => {
+                    console.log("Error occurred:", error);
+                });
+        });
+    </script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

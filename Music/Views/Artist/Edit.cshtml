@@ -12,21 +12,6 @@
 			<input asp-for="StageName" class="form-control" />
 			<span asp-validation-for="StageName" class="text-danger"></span>
 		</div>
-		<div class="mb-3">
-			<label asp-for="FirstName"></label>
-			<input asp-for="FirstName" class="form-control" />
-			<span asp-validation-for="FirstName" class="text-danger"></span>
-		</div>
-		<div class="mb-3">
-			<label asp-for="LastName"></label>
-			<input asp-for="LastName" class="form-control" />
-			<span asp-validation-for="LastName" class="text-danger"></span>
-		</div>
-		<div class="mb-3">
-			<label asp-for="Country"></label>
-			<input asp-for="Country" class="form-control" />
-			<span asp-validation-for="Country" class="text-danger"></span>
-		</div>
 
 		<button type="submit" class="btn btn-primary" style="width:150px">Update</button>
 		<a asp-controller="Artist" asp-action="Index" class="btn btn-secondary" style="width:150px">

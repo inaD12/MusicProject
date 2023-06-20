@@ -13,11 +13,6 @@
 			<span asp-validation-for="Title" class="text-danger"></span>
 		</div>
 		<div class="mb-3">
-			<label asp-for="Ganre"></label>
-			<input asp-for="Ganre" class="form-control" />
-			<span asp-validation-for="Ganre" class="text-danger"></span>
-		</div>
-		<div class="mb-3">
 			<label asp-for="AlbumName">Album Title</label>
 			<input asp-for="AlbumName" class="form-control" />
 			<span asp-validation-for="AlbumName" class="text-danger"></span>
@@ -28,19 +23,14 @@
 			<span asp-validation-for="Length" class="text-danger"></span>
 		</div>
 		<div class="mb-3">
+			<label asp-for="Explicit"></label>
+			<input asp-for="Explicit" class="form-control" />
+			<span asp-validation-for="Explicit" class="text-danger"></span>
+		</div>
+		<div class="mb-3">
 			<label asp-for="ArtistName">Artist (Stage Name)</label>
 			<input asp-for="ArtistName" class="form-control" />
 			<span asp-validation-for="ArtistName" class="text-danger"></span>
-		</div>
-		<div class="mb-3">
-			<label asp-for="ReleaseYear"></label>
-			<input asp-for="ReleaseYear" class="form-control" />
-			<span asp-validation-for="ReleaseYear" class="text-danger"></span>
-		</div>
-		<div class="mb-3">
-			<label asp-for="SongLanguage"></label>
-			<input asp-for="SongLanguage" class="form-control" />
-			<span asp-validation-for="SongLanguage" class="text-danger"></span>
 		</div>
 
 		<button type="submit" class="btn btn-primary" style="width:150px">Update</button>
