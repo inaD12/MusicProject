@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Identity;
+using Microsoft.CodeAnalysis;
 using Microsoft.EntityFrameworkCore;
 using Music.Controllers;
 using Music.Data;
@@ -32,8 +33,13 @@ public class Program
 		builder.Services.AddControllersWithViews();
         builder.Services.AddLogging();
 		builder.Services.AddScoped<IApiService, ApiService>();
+        builder.Services.AddScoped<IAlbumService, AlbumService>();
+        builder.Services.AddScoped<ISongService, SongService>();
+        builder.Services.AddScoped<IArtistService, ArtistService>();
 
-		var app = builder.Build();
+
+
+        var app = builder.Build();
 
 
 

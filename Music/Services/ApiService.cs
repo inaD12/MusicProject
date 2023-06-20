@@ -51,7 +51,7 @@ namespace Music.Services
 
 		public async Task<IActionResult> FetchAlbums()
 		{
-			const int targetAlbumCount = 200;
+			const int targetAlbumCount = 50;
 			var albums = new List<Album>();
 			var fetchedAlbumIds = new HashSet<string>();
 

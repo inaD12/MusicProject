@@ -1,103 +1,99 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Music.Data;
+﻿using Music.Data;
 using Music.Data.DataModels;
 using Music.Services.Interfaces;
 using Music.Services.ViewModels;
-using System;
-using System.Diagnostics.Metrics;
-using System.Security.Cryptography.X509Certificates;
 
 namespace Music.Services
 {
-	public class ArtistService : IArtistService
-	{
-		private readonly ApplicationDbContext _db;
+    public class ArtistService : IArtistService
+    {
+        private readonly ApplicationDbContext _db;
 
         public ArtistService(ApplicationDbContext db)
         {
-			_db = db;
+            _db = db;
         }
-		public List<Artist> GetAll()
-		{
-			return _db.Artists.Select(artist => new Artist()
-			{
-				Id = artist.Id,
-				StageName = artist.StageName,
-				CreatorID = artist.CreatorID,
-			}).ToList();
-		}
+        public List<Artist> GetAll()
+        {
+            return _db.Artists.Select(artist => new Artist()
+            {
+                Id = artist.Id,
+                StageName = artist.StageName,
+                CreatorID = artist.CreatorID,
+            }).ToList();
+        }
 
-		public bool CheckId(string Id)
-		{
-			var artist = _db.Artists.Find(Id);
-			if (artist == null)
-				return false;
-			return true;
-		}
-		
-
-
-		public async Task CreateAsync(ArtistViewModel model)
-		{
-			Artist artist = new Artist
-			{
-				Id = Guid.NewGuid().ToString(),
-				StageName = model.StageName,
-				CreatorID = model.CreatorID,
-			};
+        public bool CheckId(string Id)
+        {
+            var artist = _db.Artists.Find(Id);
+            if (artist == null)
+                return false;
+            return true;
+        }
 
 
-			await _db.Artists.AddAsync(artist);
-			await _db.SaveChangesAsync();
-		}
 
-		public async Task DeleteArtist(string id)
-		{
-			var artist = await _db.Artists.FindAsync(id);
+        public async Task CreateAsync(ArtistViewModel model)
+        {
+            Artist artist = new Artist
+            {
+                Id = Guid.NewGuid().ToString(),
+                StageName = model.StageName,
+                CreatorID = model.CreatorID,
+            };
 
-			if (artist != null)
-			{
-				var albums = _db.Albums.Where(a => a.Artist.Id == id);
 
-				foreach (var album in albums)
-				{
-					_db.Albums.Remove(album);
-				}
+            await _db.Artists.AddAsync(artist);
+            await _db.SaveChangesAsync();
+        }
 
-				_db.Artists.Remove(artist);
+        public async Task DeleteArtist(string id)
+        {
+            var artist = await _db.Artists.FindAsync(id);
 
-				await _db.SaveChangesAsync();
-			}
-		}
+            if (artist != null)
+            {
+                var albums = _db.Albums.Where(a => a.Artist.Id == id);
 
-		public async Task UpdateAsync(ArtistViewModel model)
-		{
-			Artist artist = _db.Artists.Find(model.Id);
+                foreach (var album in albums)
+                {
+                    _db.Albums.Remove(album);
+                }
 
-			bool isArtistNull = artist == null;
-			if (isArtistNull)
-			{
-				return;
-			}
+                _db.Artists.Remove(artist);
 
-			artist.StageName = model.StageName;
-			artist.CreatorID = model.CreatorID;
+                await _db.SaveChangesAsync();
+            }
+        }
 
-			_db.Artists.Update(artist);
-			await _db.SaveChangesAsync();
-		}
+        public async Task UpdateAsync(ArtistViewModel model)
+        {
+            Artist artist = _db.Artists.Find(model.Id);
 
-		public ArtistViewModel GetById(string id)
-		{
-			ArtistViewModel artist = _db.Artists
-				.Select(artist => new ArtistViewModel
-				{
-					Id = artist.Id,
-					StageName = artist.StageName,
-					CreatorID = artist.CreatorID,
-				}).SingleOrDefault(artist => artist.Id == id);
+            bool isArtistNull = artist == null;
+            if (isArtistNull)
+            {
+                return;
+            }
 
-			return artist;
-		}
-	}
+            artist.StageName = model.StageName;
+            artist.CreatorID = model.CreatorID;
+
+            _db.Artists.Update(artist);
+            await _db.SaveChangesAsync();
+        }
+
+        public ArtistViewModel GetById(string id)
+        {
+            ArtistViewModel artist = _db.Artists
+                .Select(artist => new ArtistViewModel
+                {
+                    Id = artist.Id,
+                    StageName = artist.StageName,
+                    CreatorID = artist.CreatorID,
+                }).SingleOrDefault(artist => artist.Id == id);
+
+            return artist;
+        }
+    }
 }
