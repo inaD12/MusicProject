@@ -21,12 +21,15 @@
 			<input asp-for="Length" disabled class="form-control" />
 		</div>
 		<div class="mb-3">
-			<label asp-for="Explicit"></label>
-			<input asp-for="Explicit" disabled class="form-control" />
-		</div>
-		<div class="mb-3">
 			<label asp-for="ArtistName">Artist (Stage Name)</label>
 			<input asp-for="ArtistName" disabled class="form-control" />
+		</div>
+		<div class="mb-3">
+			<label asp-for="Explicit"></label>
+			<div disabled class="form-check">
+				<input asp-for="Explicit" class="form-check-input" disabled />
+				<label disabled class="form-check-label" asp-for="Explicit">Explicit</label>
+			</div>
 		</div>
 
 
