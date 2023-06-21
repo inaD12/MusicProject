@@ -24,14 +24,17 @@
 			<span asp-validation-for="Length" class="text-danger"></span>
 		</div>
 		<div class="mb-3">
-			<label asp-for="Explicit"></label>
-			<input asp-for="Explicit" class="form-control" />
-			<span asp-validation-for="Explicit" class="text-danger"></span>
-		</div>
-		<div class="mb-3">
 			<label asp-for="ArtistName">Artist (Stage Name)</label>
 			<input asp-for="ArtistName" class="form-control" />
 			<span asp-validation-for="ArtistName" class="text-danger"></span>
+		</div>
+		<div class="mb-3">
+			<label asp-for="Explicit"></label>
+			<div class="form-check">
+				<input asp-for="Explicit" class="form-check-input" />
+				<label class="form-check-label" asp-for="Explicit">Explicit</label>
+			</div>
+			<span asp-validation-for="Explicit" class="text-danger"></span>
 		</div>
 
 		<button type="submit" class="btn btn-primary" style="width:150px">Create</button>
